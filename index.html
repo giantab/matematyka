@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Matma 1–100</title>
+  <title>Matma Mikiego</title>
   <style>
     :root{
-      /* JAŚNIEJSZE TŁO */
       --bg:#0b2a4a;
       --bg2:#163d6b;
       --panel:#0b2744;
@@ -26,8 +25,7 @@
     body{
       margin:0;
       font-family:var(--font);
-      background:
-        radial-gradient(1200px 700px at 20% 10%, #2b6aa6 0%, var(--bg2) 45%, var(--bg) 100%);
+      background: radial-gradient(1200px 700px at 20% 10%, #2b6aa6 0%, var(--bg2) 45%, var(--bg) 100%);
       color:var(--text);
       min-height:100vh;
       display:flex;
@@ -54,28 +52,10 @@
       justify-content:space-between;
       flex-wrap:wrap;
     }
-    .title{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .title h1{
-      margin:0;
-      font-size:18px;
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .title .sub{
-      font-size:13px;
-      color:var(--muted);
-    }
-    .stats{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
+    .title{display:flex;flex-direction:column;gap:4px;}
+    .title h1{margin:0;font-size:18px;font-weight:700;letter-spacing:.2px;}
+    .title .sub{font-size:13px;color:var(--muted);}
+    .stats{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
     .pill{
       background: rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.12);
@@ -89,36 +69,16 @@
       min-width: 120px;
       justify-content:space-between;
     }
-    main{
-      padding:18px;
-      display:grid;
-      gap:14px;
-    }
+    main{padding:18px;display:grid;gap:14px;}
     .card{
       background: rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.12);
       border-radius: var(--radius);
       padding:16px;
     }
-    .row{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .problem{
-      font-size:40px;
-      font-weight:800;
-      letter-spacing: .5px;
-    }
-    .controls{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:flex-end;
-    }
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
+    .problem{font-size:40px;font-weight:800;letter-spacing:.5px;}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
     input[type="number"]{
       width:160px;
       padding:12px 12px;
@@ -144,11 +104,9 @@
       font-size:14px;
     }
     button:hover{ background: rgba(77,163,255,.30); }
-    button.secondary{
-      background: rgba(255,255,255,.10);
-    }
+    button.secondary{ background: rgba(255,255,255,.10); }
+    button:disabled, input:disabled{ opacity:.55; cursor:not-allowed; }
 
-    /* TIMER */
     .timer-wrap{
       display:flex;
       gap:10px;
@@ -157,38 +115,22 @@
       justify-content:space-between;
       margin-top:12px;
     }
-    .timer{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .timer-label{
-      font-size:13px;
-      color:var(--muted);
-    }
+    .timer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .timer-label{font-size:13px;color:var(--muted);}
     .timer-bar{
-      width:220px;
-      height:12px;
-      border-radius:999px;
+      width:220px;height:12px;border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.18);
       overflow:hidden;
     }
     .timer-fill{
-      height:100%;
-      width:100%;
+      height:100%;width:100%;
       background: rgba(57,217,138,.75);
       transform-origin:left center;
       transform: scaleX(1);
       transition: transform .12s linear, background .2s ease;
     }
-    .timer-seconds{
-      min-width:70px;
-      text-align:right;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
+    .timer-seconds{min-width:70px;text-align:right;font-weight:800;letter-spacing:.2px;}
 
     .feedback{
       margin-top:10px;
@@ -202,26 +144,12 @@
       justify-content:space-between;
       min-height:46px;
     }
-    .feedback .msg{ font-size:15px; }
-    .feedback.ok{
-      border-color: rgba(57,217,138,.35);
-      background: rgba(57,217,138,.10);
-    }
-    .feedback.bad{
-      border-color: rgba(255,92,92,.35);
-      background: rgba(255,92,92,.10);
-    }
-    .small{
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.35;
-    }
-    .toggles{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
+    .feedback .msg{font-size:15px;}
+    .feedback.ok{border-color: rgba(57,217,138,.35);background: rgba(57,217,138,.10);}
+    .feedback.bad{border-color: rgba(255,92,92,.35);background: rgba(255,92,92,.10);}
+
+    .small{font-size:13px;color:var(--muted);line-height:1.35;}
+    .toggles{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
     .toggle{
       background: rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.12);
@@ -233,7 +161,6 @@
       user-select:none;
     }
     .toggle input{ transform:scale(1.1); }
-
     .footer{
       padding:14px 18px 18px 18px;
       border-top:1px solid rgba(255,255,255,.10);
@@ -245,10 +172,7 @@
       color:var(--muted);
       font-size:12px;
     }
-    .hint{
-      color: var(--muted);
-      font-size:13px;
-    }
+    .hint{color:var(--muted);font-size:13px;}
     .kbd{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       background: rgba(255,255,255,.12);
@@ -258,18 +182,15 @@
       color: var(--text);
       font-size:12px;
     }
-    input[type="range"]{
-      width:180px;
-      accent-color: var(--accent);
-    }
+    input[type="range"]{width:180px;accent-color: var(--accent);}
   </style>
 </head>
 <body>
-  <div class="app" role="application" aria-label="Matma 1–100">
+  <div class="app" role="application" aria-label="Matma Mikiego">
     <header>
       <div class="title">
-        <h1>Matma 1–100</h1>
-        <div class="sub">Dodawanie, odejmowanie, mnożenie i dzielenie. Czas + natychmiastowy wynik + punkty.</div>
+        <h1>Matma Mikiego</h1>
+        <div class="sub">Dodawanie, odejmowanie, mnożenie i dzielenie. Czas + wynik + punkty.</div>
       </div>
       <div class="stats">
         <div class="pill"><span>Punkty</span><strong id="points">0</strong></div>
@@ -289,7 +210,6 @@
           </div>
         </div>
 
-        <!-- TIMER UI -->
         <div class="timer-wrap">
           <div class="timer">
             <div class="timer-label">Czas na odpowiedź:</div>
@@ -316,11 +236,13 @@
           <label class="toggle"><input type="checkbox" id="opSub" checked> Odejmowanie (-)</label>
           <label class="toggle"><input type="checkbox" id="opMul" checked> Mnożenie (×)</label>
           <label class="toggle"><input type="checkbox" id="opDiv" checked> Dzielenie (÷)</label>
+
+          <label class="toggle"><input type="checkbox" id="learnMode" checked> Tryb nauki (wymaga wpisania poprawnej)</label>
           <label class="toggle"><input type="checkbox" id="saveLocal" checked> Zapisuj punkty na tym urządzeniu</label>
         </div>
 
         <div class="small" style="margin-top:10px">
-          Zakres: liczby i wyniki w 1–100; w dzieleniu wynik jest całkowity (bez ułamków). Po skończeniu czasu zadanie liczy się jako błędne.
+          Zakres: liczby i wyniki w 1–100; w dzieleniu wynik jest całkowity (bez ułamków).
         </div>
       </div>
     </main>
@@ -333,6 +255,8 @@
 
 <script>
 (() => {
+  const FEEDBACK_PAUSE_MS = 1400;
+
   const el = (id) => document.getElementById(id);
 
   const ui = {
@@ -350,15 +274,15 @@
     opSub: el("opSub"),
     opMul: el("opMul"),
     opDiv: el("opDiv"),
+    learnMode: el("learnMode"),
     saveLocal: el("saveLocal"),
-
     timerFill: el("timerFill"),
     timeLeft: el("timeLeft"),
     timeLimit: el("timeLimit"),
     timeLimitVal: el("timeLimitVal"),
   };
 
-  const STORAGE_KEY = "matma100_state_v2";
+  const STORAGE_KEY = "matma_mikiego_state_v2";
 
   let state = {
     points: 0,
@@ -368,12 +292,28 @@
     timeLimitSec: 10,
   };
 
-  // TIMER state
   let timerId = null;
-  let startedAt = 0;
   let deadline = 0;
 
+  let uiLocked = false;
+
+  // Learn mode state:
+  // when true, user must enter the correct answer to proceed; no points for correction
+  let correctionRequired = false;
+
   const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  function lockUI(on) {
+    uiLocked = on;
+    ui.answer.disabled = on;
+    ui.checkBtn.disabled = on;
+    ui.nextBtn.disabled = on;
+    ui.opAdd.disabled = on;
+    ui.opSub.disabled = on;
+    ui.opMul.disabled = on;
+    ui.opDiv.disabled = on;
+    ui.timeLimit.disabled = on;
+  }
 
   function enabledOps() {
     const ops = [];
@@ -390,7 +330,8 @@
       points: state.points,
       streak: state.streak,
       tries: state.tries,
-      timeLimitSec: state.timeLimitSec
+      timeLimitSec: state.timeLimitSec,
+      learnMode: ui.learnMode.checked
     }));
   }
 
@@ -404,6 +345,7 @@
       if (typeof data.streak === "number") state.streak = data.streak;
       if (typeof data.tries === "number") state.tries = data.tries;
       if (typeof data.timeLimitSec === "number") state.timeLimitSec = data.timeLimitSec;
+      if (typeof data.learnMode === "boolean") ui.learnMode.checked = data.learnMode;
     } catch {}
   }
 
@@ -413,12 +355,11 @@
     ui.tries.textContent = String(state.tries);
   }
 
-  function setFeedback(kind, text, rightAnswer = null) {
+  function setFeedback(kind, text) {
     ui.feedback.classList.remove("ok", "bad");
     if (kind === "ok") ui.feedback.classList.add("ok");
     if (kind === "bad") ui.feedback.classList.add("bad");
-
-    ui.msg.textContent = rightAnswer == null ? text : `${text} Poprawna odpowiedź: ${rightAnswer}.`;
+    ui.msg.textContent = text;
   }
 
   // ----- TIMER -----
@@ -435,7 +376,6 @@
     const ratio = total > 0 ? msLeft / total : 0;
     ui.timerFill.style.transform = `scaleX(${Math.max(0, Math.min(1, ratio))})`;
 
-    // kolor paska przy końcówce
     if (ratio <= 0.25) ui.timerFill.style.background = "rgba(255,92,92,.78)";
     else if (ratio <= 0.5) ui.timerFill.style.background = "rgba(255,198,77,.78)";
     else ui.timerFill.style.background = "rgba(57,217,138,.75)";
@@ -443,9 +383,7 @@
 
   function startTimer() {
     stopTimer();
-    startedAt = Date.now();
-    deadline = startedAt + state.timeLimitSec * 1000;
-
+    deadline = Date.now() + state.timeLimitSec * 1000;
     updateTimerUI(deadline - Date.now());
 
     timerId = setInterval(() => {
@@ -459,21 +397,46 @@
     }, 120);
   }
 
+  function pauseThenNext() {
+    lockUI(true);
+    setTimeout(() => {
+      lockUI(false);
+      generateTask();
+    }, FEEDBACK_PAUSE_MS);
+  }
+
+  function requireCorrection(reasonText) {
+    // learn mode: stop timer, require correct answer to continue
+    stopTimer();
+    correctionRequired = true;
+    state.streak = 0;
+    renderStats();
+    setFeedback("bad", `${reasonText} Poprawny wynik to: ${state.current.answer}. Wpisz poprawny wynik, żeby przejść dalej.`);
+    ui.answer.focus();
+    ui.answer.select();
+  }
+
   function onTimeout() {
     if (!state.current) return;
-    // timeout = błędna odpowiedź
     state.tries += 1;
     state.streak = 0;
-    setFeedback("bad", "Czas minął.", state.current.answer);
     saveIfEnabled();
     renderStats();
 
-    // kolejne zadanie po chwili
-    setTimeout(generateTask, 700);
+    if (ui.learnMode.checked) {
+      requireCorrection("Czas minął.");
+    } else {
+      setFeedback("bad", `Czas minął. Poprawna odpowiedź: ${state.current.answer}.`);
+      pauseThenNext();
+    }
   }
 
   // ----- TASK GENERATION -----
   function generateTask() {
+    if (uiLocked) return;
+
+    correctionRequired = false;
+
     const ops = enabledOps();
     if (ops.length === 0) {
       ui.opAdd.checked = true;
@@ -521,6 +484,7 @@
     ui.problem.textContent = text;
 
     ui.answer.value = "";
+    ui.answer.disabled = false;
     ui.answer.focus();
     setFeedback(null, "Wpisz wynik i kliknij „Sprawdź” (albo Enter).");
 
@@ -529,6 +493,7 @@
 
   // ----- CHECKING -----
   function checkAnswer() {
+    if (uiLocked) return;
     if (!state.current) return;
 
     const v = ui.answer.value.trim();
@@ -539,31 +504,64 @@
     }
 
     const userAns = Number(v);
-    state.tries += 1;
-
-    if (Number.isFinite(userAns) && userAns === state.current.answer) {
-      stopTimer();
-      state.points += 1;
-      state.streak += 1;
-      setFeedback("ok", "Dobrze!");
-      saveIfEnabled();
-      renderStats();
-      setTimeout(generateTask, 450);
+    if (!Number.isFinite(userAns)) {
+      setFeedback("bad", "Wpisz poprawną liczbę.");
+      ui.answer.focus();
       return;
     }
 
+    // count tries on each submission
+    state.tries += 1;
+
+    // If correction is required, only accept correct answer to proceed (no point)
+    if (correctionRequired) {
+      if (userAns === state.current.answer) {
+        correctionRequired = false;
+        saveIfEnabled();
+        renderStats();
+        setFeedback("ok", "Dobrze - teraz następne!");
+        pauseThenNext();
+      } else {
+        state.streak = 0;
+        saveIfEnabled();
+        renderStats();
+        setFeedback("bad", `Jeszcze nie. Poprawny wynik to: ${state.current.answer}. Spróbuj wpisać go poprawnie.`);
+        ui.answer.focus();
+        ui.answer.select();
+      }
+      return;
+    }
+
+    // normal mode checking (timer running)
     stopTimer();
+
+    if (userAns === state.current.answer) {
+      state.points += 1;
+      state.streak += 1;
+      saveIfEnabled();
+      renderStats();
+      setFeedback("ok", "Dobrze!");
+      pauseThenNext();
+      return;
+    }
+
+    // wrong answer
     state.streak = 0;
-    setFeedback("bad", "Źle.", state.current.answer);
     saveIfEnabled();
     renderStats();
-    ui.answer.select();
-    // restart timera, żeby dziecko nie było "zablokowane" na złej odpowiedzi
-    startTimer();
+
+    if (ui.learnMode.checked) {
+      requireCorrection("Źle.");
+    } else {
+      setFeedback("bad", `Źle. Poprawna odpowiedź: ${state.current.answer}.`);
+      pauseThenNext();
+    }
   }
 
   function resetPoints() {
+    if (uiLocked) return;
     stopTimer();
+    correctionRequired = false;
     state.points = 0;
     state.streak = 0;
     state.tries = 0;
@@ -576,7 +574,13 @@
 
   // ----- UI wiring -----
   ui.checkBtn.addEventListener("click", checkAnswer);
-  ui.nextBtn.addEventListener("click", generateTask);
+
+  ui.nextBtn.addEventListener("click", () => {
+    if (uiLocked) return;
+    stopTimer();
+    generateTask();
+  });
+
   ui.resetBtn.addEventListener("click", resetPoints);
 
   ui.answer.addEventListener("keydown", (e) => {
@@ -594,8 +598,22 @@
     }
   });
 
+  ui.learnMode.addEventListener("change", () => {
+    saveIfEnabled();
+    // jeśli ktoś przełączy w trakcie korekty, respektuj nowy tryb:
+    if (!ui.learnMode.checked && correctionRequired) {
+      correctionRequired = false;
+      setFeedback(null, "Tryb nauki wyłączony.");
+      pauseThenNext();
+    }
+  });
+
   [ui.opAdd, ui.opSub, ui.opMul, ui.opDiv].forEach(chk => {
-    chk.addEventListener("change", generateTask);
+    chk.addEventListener("change", () => {
+      if (uiLocked) return;
+      stopTimer();
+      generateTask();
+    });
   });
 
   function applyTimeLimitUI() {
@@ -604,11 +622,11 @@
   }
 
   ui.timeLimit.addEventListener("input", () => {
+    if (uiLocked) return;
     state.timeLimitSec = Number(ui.timeLimit.value);
     ui.timeLimitVal.textContent = String(state.timeLimitSec);
     saveIfEnabled();
-    // zmiana limitu = restart timera
-    if (state.current) startTimer();
+    if (state.current && !correctionRequired) startTimer();
   });
 
   // Init
