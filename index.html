@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matma 1–100</title>
+  <style>
+    :root{
+      --bg:#061a2d;          /* ciemny niebieski */
+      --panel:#0b2744;       /* jaśniejszy panel */
+      --panel2:#0e3155;
+      --text:#e9f2ff;
+      --muted:#b9cbe3;
+      --ok:#39d98a;
+      --bad:#ff5c5c;
+      --accent:#4da3ff;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --radius:16px;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background: radial-gradient(1200px 700px at 20% 10%, #0c2f55 0%, var(--bg) 50%, #041223 100%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+    .app{
+      width:min(720px, 100%);
+      background: linear-gradient(180deg, var(--panel) 0%, #071d33 100%);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    header{
+      padding:18px 18px 12px 18px;
+      background: linear-gradient(180deg, var(--panel2) 0%, rgba(14,49,85,0) 100%);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .title h1{
+      margin:0;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .title .sub{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .stats{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .pill{
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      color:var(--text);
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width: 120px;
+      justify-content:space-between;
+    }
+    main{
+      padding:18px;
+      display:grid;
+      gap:14px;
+    }
+    .card{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:16px;
+    }
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .problem{
+      font-size:40px;
+      font-weight:800;
+      letter-spacing: .5px;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    input[type="number"]{
+      width:160px;
+      padding:12px 12px;
+      font-size:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.20);
+      color:var(--text);
+      outline:none;
+    }
+    input[type="number"]:focus{
+      border-color: rgba(77,163,255,.8);
+      box-shadow: 0 0 0 4px rgba(77,163,255,.18);
+    }
+    button{
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(77,163,255,.18);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+    }
+    button:hover{ background: rgba(77,163,255,.26); }
+    button.secondary{
+      background: rgba(255,255,255,.08);
+    }
+    .feedback{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      min-height:46px;
+    }
+    .feedback .msg{ font-size:15px; }
+    .feedback.ok{
+      border-color: rgba(57,217,138,.35);
+      background: rgba(57,217,138,.10);
+    }
+    .feedback.bad{
+      border-color: rgba(255,92,92,.35);
+      background: rgba(255,92,92,.10);
+    }
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .toggles{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .toggle{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      padding:10px 12px;
+      border-radius:12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      user-select:none;
+    }
+    .toggle input{ transform:scale(1.1); }
+    .footer{
+      padding:14px 18px 18px 18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .hint{
+      color: var(--muted);
+      font-size:13px;
+    }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      padding:2px 6px;
+      border-radius:8px;
+      color: var(--text);
+      font-size:12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app" role="application" aria-label="Matma 1–100">
+    <header>
+      <div class="title">
+        <h1>Matma 1–100</h1>
+        <div class="sub">Dodawanie, odejmowanie, mnożenie i dzielenie. Natychmiastowy wynik + punkty.</div>
+      </div>
+      <div class="stats">
+        <div class="pill"><span>Punkty</span><strong id="points">0</strong></div>
+        <div class="pill"><span>Seria</span><strong id="streak">0</strong></div>
+        <div class="pill"><span>Próby</span><strong id="tries">0</strong></div>
+      </div>
+    </header>
+
+    <main>
+      <div class="card">
+        <div class="row">
+          <div class="problem" id="problem">—</div>
+          <div class="controls">
+            <input id="answer" type="number" inputmode="numeric" autocomplete="off" placeholder="Wpisz wynik" />
+            <button id="checkBtn">Sprawdź</button>
+            <button class="secondary" id="nextBtn" title="Nowe działanie">Następne</button>
+          </div>
+        </div>
+
+        <div id="feedback" class="feedback" aria-live="polite">
+          <div class="msg" id="msg">Wpisz wynik i kliknij „Sprawdź” (albo Enter).</div>
+          <div class="hint">Skrót: <span class="kbd">Enter</span></div>
+        </div>
+
+        <div class="toggles" aria-label="Ustawienia działań">
+          <label class="toggle"><input type="checkbox" id="opAdd" checked> Dodawanie (+)</label>
+          <label class="toggle"><input type="checkbox" id="opSub" checked> Odejmowanie (-)</label>
+          <label class="toggle"><input type="checkbox" id="opMul" checked> Mnożenie (×)</label>
+          <label class="toggle"><input type="checkbox" id="opDiv" checked> Dzielenie (÷)</label>
+          <label class="toggle"><input type="checkbox" id="saveLocal" checked> Zapisuj punkty na tym urządzeniu</label>
+        </div>
+
+        <div class="small" style="margin-top:10px">
+          Zasady zakresu: liczby i wyniki są dobierane tak, żeby mieściły się w 1–100; w dzieleniu wynik jest całkowity (bez ułamków).
+        </div>
+      </div>
+    </main>
+
+    <div class="footer">
+      <div>Tryb bez bazy danych: działa lokalnie. Opcjonalny zapis w przeglądarce (localStorage).</div>
+      <button class="secondary" id="resetBtn">Reset punktów</button>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // --- State ---
+  const el = (id) => document.getElementById(id);
+
+  const ui = {
+    problem: el("problem"),
+    answer: el("answer"),
+    msg: el("msg"),
+    feedback: el("feedback"),
+    points: el("points"),
+    streak: el("streak"),
+    tries: el("tries"),
+    checkBtn: el("checkBtn"),
+    nextBtn: el("nextBtn"),
+    resetBtn: el("resetBtn"),
+    opAdd: el("opAdd"),
+    opSub: el("opSub"),
+    opMul: el("opMul"),
+    opDiv: el("opDiv"),
+    saveLocal: el("saveLocal"),
+  };
+
+  const STORAGE_KEY = "matma100_state_v1";
+
+  let state = {
+    points: 0,
+    streak: 0,
+    tries: 0,
+    current: null, // {a,b,op,answer,text}
+  };
+
+  // --- Helpers ---
+  const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  function enabledOps() {
+    const ops = [];
+    if (ui.opAdd.checked) ops.push("+");
+    if (ui.opSub.checked) ops.push("-");
+    if (ui.opMul.checked) ops.push("×");
+    if (ui.opDiv.checked) ops.push("÷");
+    return ops;
+  }
+
+  function saveIfEnabled() {
+    if (!ui.saveLocal.checked) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      points: state.points,
+      streak: state.streak,
+      tries: state.tries
+    }));
+  }
+
+  function loadIfEnabled() {
+    if (!ui.saveLocal.checked) return;
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      if (typeof data.points === "number") state.points = data.points;
+      if (typeof data.streak === "number") state.streak = data.streak;
+      if (typeof data.tries === "number") state.tries = data.tries;
+    } catch {}
+  }
+
+  function renderStats() {
+    ui.points.textContent = String(state.points);
+    ui.streak.textContent = String(state.streak);
+    ui.tries.textContent = String(state.tries);
+  }
+
+  function setFeedback(kind, text, rightAnswer = null) {
+    ui.feedback.classList.remove("ok", "bad");
+    if (kind === "ok") ui.feedback.classList.add("ok");
+    if (kind === "bad") ui.feedback.classList.add("bad");
+
+    ui.msg.textContent = rightAnswer == null ? text : `${text} Poprawna odpowiedź: ${rightAnswer}.`;
+  }
+
+  // --- Task generation within 1–100 constraints ---
+  function generateTask() {
+    const ops = enabledOps();
+    if (ops.length === 0) {
+      // fallback: if nothing selected, force addition
+      ui.opAdd.checked = true;
+      ops.push("+");
+    }
+
+    const op = ops[randInt(0, ops.length - 1)];
+
+    let a, b, ans, text;
+
+    if (op === "+") {
+      a = randInt(1, 100);
+      b = randInt(1, 100 - a); // ensure <= 100
+      ans = a + b;
+      text = `${a} + ${b}`;
+    }
+
+    if (op === "-") {
+      a = randInt(1, 100);
+      b = randInt(1, a);       // ensure non-negative
+      ans = a - b;
+      text = `${a} - ${b}`;
+    }
+
+    if (op === "×") {
+      // choose factors so product <= 100
+      a = randInt(1, 12);
+      b = randInt(1, Math.floor(100 / a));
+      ans = a * b;
+      text = `${a} × ${b}`;
+    }
+
+    if (op === "÷") {
+      // ensure integer division within 1–100
+      // pick answer and divisor; compute dividend
+      b = randInt(1, 12);          // divisor
+      ans = randInt(1, 12);        // quotient
+      a = b * ans;                 // dividend
+      // keep within 1..100
+      if (a > 100) {
+        // adjust safely
+        b = randInt(1, 10);
+        ans = randInt(1, Math.floor(100 / b));
+        a = b * ans;
+      }
+      text = `${a} ÷ ${b}`;
+    }
+
+    state.current = { a, b, op, answer: ans, text };
+    ui.problem.textContent = text;
+    ui.answer.value = "";
+    ui.answer.focus();
+    setFeedback(null, "Wpisz wynik i kliknij „Sprawdź” (albo Enter).");
+  }
+
+  // --- Checking ---
+  function checkAnswer() {
+    if (!state.current) return;
+
+    const v = ui.answer.value.trim();
+    if (v === "") {
+      setFeedback("bad", "Wpisz liczbę.");
+      ui.answer.focus();
+      return;
+    }
+
+    const userAns = Number(v);
+    state.tries += 1;
+
+    if (Number.isFinite(userAns) && userAns === state.current.answer) {
+      state.points += 1;
+      state.streak += 1;
+      setFeedback("ok", "Dobrze!");
+      saveIfEnabled();
+      renderStats();
+      // auto-next after short delay
+      setTimeout(generateTask, 450);
+      return;
+    }
+
+    // wrong
+    state.streak = 0;
+    setFeedback("bad", "Źle.", state.current.answer);
+    saveIfEnabled();
+    renderStats();
+    ui.answer.select();
+  }
+
+  function resetPoints() {
+    state.points = 0;
+    state.streak = 0;
+    state.tries = 0;
+    saveIfEnabled();
+    renderStats();
+    setFeedback(null, "Zresetowano punkty.");
+    ui.answer.focus();
+  }
+
+  // --- Wire up ---
+  ui.checkBtn.addEventListener("click", checkAnswer);
+  ui.nextBtn.addEventListener("click", generateTask);
+  ui.resetBtn.addEventListener("click", resetPoints);
+
+  ui.answer.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") checkAnswer();
+  });
+
+  // If saving is toggled off, do not persist further; if toggled on, load current saved state.
+  ui.saveLocal.addEventListener("change", () => {
+    if (ui.saveLocal.checked) {
+      loadIfEnabled();
+      renderStats();
+      setFeedback(null, "Włączono zapis na urządzeniu.");
+    } else {
+      setFeedback(null, "Wyłączono zapis na urządzeniu (punkty nie będą zapamiętywane).");
+    }
+  });
+
+  // Regenerate task if ops change (keeps it simple)
+  [ui.opAdd, ui.opSub, ui.opMul, ui.opDiv].forEach(chk => {
+    chk.addEventListener("change", generateTask);
+  });
+
+  // Init
+  loadIfEnabled();
+  renderStats();
+  generateTask();
+})();
+</script>
+</body>
+</html>
