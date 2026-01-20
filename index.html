@@ -6,15 +6,19 @@
   <title>Matma 1–100</title>
   <style>
     :root{
-      --bg:#061a2d;          /* ciemny niebieski */
-      --panel:#0b2744;       /* jaśniejszy panel */
+      /* JAŚNIEJSZE TŁO */
+      --bg:#0b2a4a;
+      --bg2:#163d6b;
+      --panel:#0b2744;
       --panel2:#0e3155;
+
       --text:#e9f2ff;
       --muted:#b9cbe3;
       --ok:#39d98a;
       --bad:#ff5c5c;
       --accent:#4da3ff;
-      --shadow: 0 14px 40px rgba(0,0,0,.35);
+
+      --shadow: 0 14px 40px rgba(0,0,0,.28);
       --radius:16px;
       --font: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
     }
@@ -22,7 +26,8 @@
     body{
       margin:0;
       font-family:var(--font);
-      background: radial-gradient(1200px 700px at 20% 10%, #0c2f55 0%, var(--bg) 50%, #041223 100%);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, #2b6aa6 0%, var(--bg2) 45%, var(--bg) 100%);
       color:var(--text);
       min-height:100vh;
       display:flex;
@@ -32,16 +37,17 @@
     }
     .app{
       width:min(720px, 100%);
-      background: linear-gradient(180deg, var(--panel) 0%, #071d33 100%);
-      border:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(11,39,68,.92) 0%, rgba(7,29,51,.92) 100%);
+      border:1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
+      backdrop-filter: blur(6px);
     }
     header{
       padding:18px 18px 12px 18px;
-      background: linear-gradient(180deg, var(--panel2) 0%, rgba(14,49,85,0) 100%);
-      border-bottom:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(14,49,85,.95) 0%, rgba(14,49,85,0) 100%);
+      border-bottom:1px solid rgba(255,255,255,.10);
       display:flex;
       gap:12px;
       align-items:flex-start;
@@ -71,8 +77,8 @@
       justify-content:flex-end;
     }
     .pill{
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
       border-radius:999px;
       padding:8px 12px;
       font-size:13px;
@@ -89,8 +95,8 @@
       gap:14px;
     }
     .card{
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
       border-radius: var(--radius);
       padding:16px;
     }
@@ -118,35 +124,78 @@
       padding:12px 12px;
       font-size:18px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.20);
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
       color:var(--text);
       outline:none;
     }
     input[type="number"]:focus{
-      border-color: rgba(77,163,255,.8);
+      border-color: rgba(77,163,255,.85);
       box-shadow: 0 0 0 4px rgba(77,163,255,.18);
     }
     button{
       padding:12px 14px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(77,163,255,.18);
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(77,163,255,.22);
       color:var(--text);
       cursor:pointer;
       font-weight:700;
       font-size:14px;
     }
-    button:hover{ background: rgba(77,163,255,.26); }
+    button:hover{ background: rgba(77,163,255,.30); }
     button.secondary{
-      background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.10);
     }
+
+    /* TIMER */
+    .timer-wrap{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:12px;
+    }
+    .timer{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .timer-label{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .timer-bar{
+      width:220px;
+      height:12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .timer-fill{
+      height:100%;
+      width:100%;
+      background: rgba(57,217,138,.75);
+      transform-origin:left center;
+      transform: scaleX(1);
+      transition: transform .12s linear, background .2s ease;
+    }
+    .timer-seconds{
+      min-width:70px;
+      text-align:right;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
     .feedback{
       margin-top:10px;
       padding:12px 14px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
       display:flex;
       gap:10px;
       align-items:center;
@@ -174,8 +223,8 @@
       margin-top:10px;
     }
     .toggle{
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
       padding:10px 12px;
       border-radius:12px;
       display:flex;
@@ -184,9 +233,10 @@
       user-select:none;
     }
     .toggle input{ transform:scale(1.1); }
+
     .footer{
       padding:14px 18px 18px 18px;
-      border-top:1px solid rgba(255,255,255,.08);
+      border-top:1px solid rgba(255,255,255,.10);
       display:flex;
       gap:10px;
       flex-wrap:wrap;
@@ -201,12 +251,16 @@
     }
     .kbd{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
       padding:2px 6px;
       border-radius:8px;
       color: var(--text);
       font-size:12px;
+    }
+    input[type="range"]{
+      width:180px;
+      accent-color: var(--accent);
     }
   </style>
 </head>
@@ -215,7 +269,7 @@
     <header>
       <div class="title">
         <h1>Matma 1–100</h1>
-        <div class="sub">Dodawanie, odejmowanie, mnożenie i dzielenie. Natychmiastowy wynik + punkty.</div>
+        <div class="sub">Dodawanie, odejmowanie, mnożenie i dzielenie. Czas + natychmiastowy wynik + punkty.</div>
       </div>
       <div class="stats">
         <div class="pill"><span>Punkty</span><strong id="points">0</strong></div>
@@ -235,6 +289,23 @@
           </div>
         </div>
 
+        <!-- TIMER UI -->
+        <div class="timer-wrap">
+          <div class="timer">
+            <div class="timer-label">Czas na odpowiedź:</div>
+            <div class="timer-bar" aria-label="Pasek czasu">
+              <div class="timer-fill" id="timerFill"></div>
+            </div>
+            <div class="timer-seconds"><span id="timeLeft">10</span>s</div>
+          </div>
+
+          <div class="timer">
+            <div class="timer-label">Sekundy:</div>
+            <input type="range" id="timeLimit" min="5" max="30" value="10" step="1" />
+            <div class="timer-label"><strong id="timeLimitVal">10</strong>s</div>
+          </div>
+        </div>
+
         <div id="feedback" class="feedback" aria-live="polite">
           <div class="msg" id="msg">Wpisz wynik i kliknij „Sprawdź” (albo Enter).</div>
           <div class="hint">Skrót: <span class="kbd">Enter</span></div>
@@ -249,7 +320,7 @@
         </div>
 
         <div class="small" style="margin-top:10px">
-          Zasady zakresu: liczby i wyniki są dobierane tak, żeby mieściły się w 1–100; w dzieleniu wynik jest całkowity (bez ułamków).
+          Zakres: liczby i wyniki w 1–100; w dzieleniu wynik jest całkowity (bez ułamków). Po skończeniu czasu zadanie liczy się jako błędne.
         </div>
       </div>
     </main>
@@ -262,7 +333,6 @@
 
 <script>
 (() => {
-  // --- State ---
   const el = (id) => document.getElementById(id);
 
   const ui = {
@@ -281,18 +351,28 @@
     opMul: el("opMul"),
     opDiv: el("opDiv"),
     saveLocal: el("saveLocal"),
+
+    timerFill: el("timerFill"),
+    timeLeft: el("timeLeft"),
+    timeLimit: el("timeLimit"),
+    timeLimitVal: el("timeLimitVal"),
   };
 
-  const STORAGE_KEY = "matma100_state_v1";
+  const STORAGE_KEY = "matma100_state_v2";
 
   let state = {
     points: 0,
     streak: 0,
     tries: 0,
-    current: null, // {a,b,op,answer,text}
+    current: null,
+    timeLimitSec: 10,
   };
 
-  // --- Helpers ---
+  // TIMER state
+  let timerId = null;
+  let startedAt = 0;
+  let deadline = 0;
+
   const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   function enabledOps() {
@@ -309,7 +389,8 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       points: state.points,
       streak: state.streak,
-      tries: state.tries
+      tries: state.tries,
+      timeLimitSec: state.timeLimitSec
     }));
   }
 
@@ -322,6 +403,7 @@
       if (typeof data.points === "number") state.points = data.points;
       if (typeof data.streak === "number") state.streak = data.streak;
       if (typeof data.tries === "number") state.tries = data.tries;
+      if (typeof data.timeLimitSec === "number") state.timeLimitSec = data.timeLimitSec;
     } catch {}
   }
 
@@ -339,11 +421,61 @@
     ui.msg.textContent = rightAnswer == null ? text : `${text} Poprawna odpowiedź: ${rightAnswer}.`;
   }
 
-  // --- Task generation within 1–100 constraints ---
+  // ----- TIMER -----
+  function stopTimer() {
+    if (timerId) clearInterval(timerId);
+    timerId = null;
+  }
+
+  function updateTimerUI(msLeft) {
+    const secLeft = Math.max(0, Math.ceil(msLeft / 1000));
+    ui.timeLeft.textContent = String(secLeft);
+
+    const total = state.timeLimitSec * 1000;
+    const ratio = total > 0 ? msLeft / total : 0;
+    ui.timerFill.style.transform = `scaleX(${Math.max(0, Math.min(1, ratio))})`;
+
+    // kolor paska przy końcówce
+    if (ratio <= 0.25) ui.timerFill.style.background = "rgba(255,92,92,.78)";
+    else if (ratio <= 0.5) ui.timerFill.style.background = "rgba(255,198,77,.78)";
+    else ui.timerFill.style.background = "rgba(57,217,138,.75)";
+  }
+
+  function startTimer() {
+    stopTimer();
+    startedAt = Date.now();
+    deadline = startedAt + state.timeLimitSec * 1000;
+
+    updateTimerUI(deadline - Date.now());
+
+    timerId = setInterval(() => {
+      const msLeft = deadline - Date.now();
+      updateTimerUI(msLeft);
+
+      if (msLeft <= 0) {
+        stopTimer();
+        onTimeout();
+      }
+    }, 120);
+  }
+
+  function onTimeout() {
+    if (!state.current) return;
+    // timeout = błędna odpowiedź
+    state.tries += 1;
+    state.streak = 0;
+    setFeedback("bad", "Czas minął.", state.current.answer);
+    saveIfEnabled();
+    renderStats();
+
+    // kolejne zadanie po chwili
+    setTimeout(generateTask, 700);
+  }
+
+  // ----- TASK GENERATION -----
   function generateTask() {
     const ops = enabledOps();
     if (ops.length === 0) {
-      // fallback: if nothing selected, force addition
       ui.opAdd.checked = true;
       ops.push("+");
     }
@@ -354,20 +486,19 @@
 
     if (op === "+") {
       a = randInt(1, 100);
-      b = randInt(1, 100 - a); // ensure <= 100
+      b = randInt(1, 100 - a);
       ans = a + b;
       text = `${a} + ${b}`;
     }
 
     if (op === "-") {
       a = randInt(1, 100);
-      b = randInt(1, a);       // ensure non-negative
+      b = randInt(1, a);
       ans = a - b;
       text = `${a} - ${b}`;
     }
 
     if (op === "×") {
-      // choose factors so product <= 100
       a = randInt(1, 12);
       b = randInt(1, Math.floor(100 / a));
       ans = a * b;
@@ -375,14 +506,10 @@
     }
 
     if (op === "÷") {
-      // ensure integer division within 1–100
-      // pick answer and divisor; compute dividend
-      b = randInt(1, 12);          // divisor
-      ans = randInt(1, 12);        // quotient
-      a = b * ans;                 // dividend
-      // keep within 1..100
+      b = randInt(1, 12);
+      ans = randInt(1, 12);
+      a = b * ans;
       if (a > 100) {
-        // adjust safely
         b = randInt(1, 10);
         ans = randInt(1, Math.floor(100 / b));
         a = b * ans;
@@ -392,12 +519,15 @@
 
     state.current = { a, b, op, answer: ans, text };
     ui.problem.textContent = text;
+
     ui.answer.value = "";
     ui.answer.focus();
     setFeedback(null, "Wpisz wynik i kliknij „Sprawdź” (albo Enter).");
+
+    startTimer();
   }
 
-  // --- Checking ---
+  // ----- CHECKING -----
   function checkAnswer() {
     if (!state.current) return;
 
@@ -412,25 +542,28 @@
     state.tries += 1;
 
     if (Number.isFinite(userAns) && userAns === state.current.answer) {
+      stopTimer();
       state.points += 1;
       state.streak += 1;
       setFeedback("ok", "Dobrze!");
       saveIfEnabled();
       renderStats();
-      // auto-next after short delay
       setTimeout(generateTask, 450);
       return;
     }
 
-    // wrong
+    stopTimer();
     state.streak = 0;
     setFeedback("bad", "Źle.", state.current.answer);
     saveIfEnabled();
     renderStats();
     ui.answer.select();
+    // restart timera, żeby dziecko nie było "zablokowane" na złej odpowiedzi
+    startTimer();
   }
 
   function resetPoints() {
+    stopTimer();
     state.points = 0;
     state.streak = 0;
     state.tries = 0;
@@ -438,9 +571,10 @@
     renderStats();
     setFeedback(null, "Zresetowano punkty.");
     ui.answer.focus();
+    startTimer();
   }
 
-  // --- Wire up ---
+  // ----- UI wiring -----
   ui.checkBtn.addEventListener("click", checkAnswer);
   ui.nextBtn.addEventListener("click", generateTask);
   ui.resetBtn.addEventListener("click", resetPoints);
@@ -449,10 +583,10 @@
     if (e.key === "Enter") checkAnswer();
   });
 
-  // If saving is toggled off, do not persist further; if toggled on, load current saved state.
   ui.saveLocal.addEventListener("change", () => {
     if (ui.saveLocal.checked) {
       loadIfEnabled();
+      applyTimeLimitUI();
       renderStats();
       setFeedback(null, "Włączono zapis na urządzeniu.");
     } else {
@@ -460,13 +594,26 @@
     }
   });
 
-  // Regenerate task if ops change (keeps it simple)
   [ui.opAdd, ui.opSub, ui.opMul, ui.opDiv].forEach(chk => {
     chk.addEventListener("change", generateTask);
   });
 
+  function applyTimeLimitUI() {
+    ui.timeLimit.value = String(state.timeLimitSec);
+    ui.timeLimitVal.textContent = String(state.timeLimitSec);
+  }
+
+  ui.timeLimit.addEventListener("input", () => {
+    state.timeLimitSec = Number(ui.timeLimit.value);
+    ui.timeLimitVal.textContent = String(state.timeLimitSec);
+    saveIfEnabled();
+    // zmiana limitu = restart timera
+    if (state.current) startTimer();
+  });
+
   // Init
   loadIfEnabled();
+  applyTimeLimitUI();
   renderStats();
   generateTask();
 })();
